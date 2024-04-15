@@ -1,0 +1,26 @@
+﻿//1. Doanh thu và số lượng bán theo thế kỷ mà sách đó xuất bản
+select {[Measures].[Gross Sales],[Units Sold]} on columns,
+		non empty [Times].[Century].[Century] on rows
+from [Book Sale Cube];
+//2. số lượng sách theo từng thể loại  của thế kỉ 21
+select [Measures].[Units Sold] on columns,
+	    non empty [Books].[Genre].[Genre] on rows
+from [Book Sale Cube]
+where [Times].[Century].&[21th Century];
+	
+//3. Số lượng bán theo ngôn ngữ viết sách
+select [Measures].[Units Sold] on columns,
+		non empty [Books].[Language Code].[Language Code] on rows
+from [Book Sale Cube];
+//4. Tổng số lượng bán , doanh thu theo thể loại của tác giả Stephen King 
+SELECT {[Measures].[Units Sold],[Measures].[Gross Sales]} ON COLUMNS,
+	   [Books].[Genre].[Genre] ON ROWS
+FROM [Book Sale Cube]
+WHERE [Books].[Author].&[Stephen King];
+//5. Tống số doanh thu của nhà xuất bản theo nhà xuất bản và thể loại
+SELECT non empty [Books].[Genre].[Genre] on columns,
+	   non empty [Publishers].[Publisher].[Publisher] on rows 
+from[Book Sale Cube]
+where [Measures].[Publisher Revenue];
+
+
